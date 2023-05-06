@@ -19,8 +19,4 @@ public enum Atendente {
         this.nomeAtendente = nomeAtendente;
         this.departamento = departamento;
     }
-
-    public String getNomeAtendente() {
-        return nomeAtendente;
-    }
 }
