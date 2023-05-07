@@ -1,19 +1,11 @@
 package com.atendimento.api.mapper;
 
-import com.atendimento.api.controller.data.AtendimentoRequest;
 import com.atendimento.api.controller.data.AtendimentoResponse;
 import com.atendimento.api.entity.AtendimentoEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AtendimentoMapper {
-
-    public AtendimentoEntity toAtendimentoEntity(AtendimentoRequest request) {
-        return AtendimentoEntity.builder()
-                .assunto(request.getAssunto())
-                .descricao(request.getDescricao())
-                .build();
-    }
 
     public AtendimentoResponse toAtendimentoResponse(AtendimentoEntity entity) {
         return AtendimentoResponse.builder()

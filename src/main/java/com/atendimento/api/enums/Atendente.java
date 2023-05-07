@@ -29,16 +29,8 @@ public enum Atendente {
         return nomeAtendente;
     }
 
-    public void setNomeAtendente(String nomeAtendente) {
-        this.nomeAtendente = nomeAtendente;
-    }
-
     public Departamento getDepartamento() {
         return departamento;
-    }
-
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
     }
 
     public int getQuantidadeChamado() {
