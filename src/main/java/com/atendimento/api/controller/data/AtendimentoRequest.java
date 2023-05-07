@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -14,11 +13,9 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class AtendimentoRequest {
 
-    @NotNull
     @NotEmpty
     private String assunto;
 
-    @NotNull
     @NotEmpty
     private String descricao;
 
