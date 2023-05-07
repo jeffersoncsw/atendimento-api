@@ -29,8 +29,16 @@ public enum Atendente {
         return nomeAtendente;
     }
 
+    public void setNomeAtendente(String nomeAtendente) {
+        this.nomeAtendente = nomeAtendente;
+    }
+
     public Departamento getDepartamento() {
         return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
     public int getQuantidadeChamado() {
@@ -41,13 +49,21 @@ public enum Atendente {
         this.quantidadeChamado = quantidadeChamado;
     }
 
-    public static List<Atendente> buscarAtendentePorDepartamento(Departamento departamento){
+    public static List<Atendente> buscarAtendentePorDepartamento(Departamento departamento) {
         List<Atendente> result = new ArrayList<>();
-        for(Atendente atendente: values()){
-            if(atendente.getDepartamento().equals(departamento)){
+        for (Atendente atendente : values()) {
+            if (atendente.getDepartamento().equals(departamento) && atendente.getQuantidadeChamado() < 3) {
                 result.add(atendente);
             }
         }
         return result;
+    }
+
+    public static void liberarAtendimento(Atendente atendente) {
+        atendente.setQuantidadeChamado(atendente.getQuantidadeChamado() - 1);
+    }
+
+    public static void atribuirAtendimento(Atendente atendente) {
+        atendente.setQuantidadeChamado(atendente.getQuantidadeChamado() + 1);
     }
 }

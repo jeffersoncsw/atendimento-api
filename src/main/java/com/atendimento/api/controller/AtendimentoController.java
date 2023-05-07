@@ -5,12 +5,10 @@ import com.atendimento.api.service.AtendimentoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 @AllArgsConstructor
 @RestController
@@ -20,10 +18,19 @@ public class AtendimentoController {
     private AtendimentoService atendimentoService;
 
     @PostMapping("/atendimentos")
-    public ResponseEntity solicitar(@RequestBody @Valid AtendimentoRequest request){
+    public ResponseEntity solicitar(@RequestBody @Valid AtendimentoRequest request) {
 
         var response = atendimentoService.vericarDisponibilidade(request);
 
-        return new ResponseEntity(response, HttpStatus.ACCEPTED);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/atendimentos/{numeroChamado}/finaliza")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity finalizarChamado(@PathVariable @NotEmpty String numeroChamado) {
+
+        var response = atendimentoService.finalizar(numeroChamado);
+
+        return ResponseEntity.ok(response);
     }
 }

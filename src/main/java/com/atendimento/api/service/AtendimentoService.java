@@ -6,4 +6,6 @@ import com.atendimento.api.controller.data.AtendimentoResponse;
 public interface AtendimentoService {
 
     AtendimentoResponse vericarDisponibilidade(AtendimentoRequest request);
+
+    AtendimentoResponse finalizar(String numeroChamado);
 }
