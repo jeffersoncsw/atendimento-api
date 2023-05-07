@@ -6,6 +6,7 @@ import com.atendimento.api.entity.AtendimentoEntity;
 import com.atendimento.api.enums.Atendente;
 import com.atendimento.api.enums.Departamento;
 import com.atendimento.api.enums.Status;
+import com.atendimento.api.exception.ChamadoNaoEncontradoException;
 import com.atendimento.api.exception.ValidaAssuntoException;
 import com.atendimento.api.mapper.AtendimentoMapper;
 import com.atendimento.api.repository.AtendimentoRepository;
@@ -57,7 +58,7 @@ public class AtendimentoServiceImpl implements AtendimentoService {
     @Override
     public AtendimentoResponse finalizar(String numeroChamado) {
         var entity = atendimentoRepository.findByNumeroChamado(numeroChamado).orElseThrow(() ->
-                new ValidaAssuntoException("Numero de chamado não encontrado"));
+                new ChamadoNaoEncontradoException("Numero de chamado não encontrado."));
 
         entity.finaliza();
 
