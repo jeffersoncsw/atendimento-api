@@ -7,11 +7,14 @@ import com.atendimento.api.enums.Atendente;
 import com.atendimento.api.enums.Departamento;
 import com.atendimento.api.enums.Status;
 import com.atendimento.api.exception.ChamadoNaoEncontradoException;
+import com.atendimento.api.exception.NenhumAtendimentoCadastradoException;
 import com.atendimento.api.exception.ValidaAssuntoException;
 import com.atendimento.api.mapper.AtendimentoMapper;
 import com.atendimento.api.repository.AtendimentoRepository;
 import com.atendimento.api.service.AtendimentoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -69,6 +72,17 @@ public class AtendimentoServiceImpl implements AtendimentoService {
         verificarChamadoAguardando(entity.getAtendente(), entity.getAssunto());
 
         return atendimentoMapper.toAtendimentoResponse(entity);
+    }
+
+    @Override
+    public Page<AtendimentoResponse> obterTodosAtendimentos(Pageable page) {
+        var pages = atendimentoRepository.findAll(page);
+
+        if (pages.isEmpty()) {
+            throw new NenhumAtendimentoCadastradoException("Não existe nenhum atendimento cadastrado na base de dados");
+        }
+
+        return pages.map(atendimento -> atendimentoMapper.toAtendimentoResponse(atendimento));
     }
 
     private void verificarChamadoAguardando(Atendente atendente, String assunto) {

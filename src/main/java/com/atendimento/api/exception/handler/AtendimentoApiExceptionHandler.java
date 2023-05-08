@@ -1,6 +1,7 @@
 package com.atendimento.api.exception.handler;
 
 import com.atendimento.api.exception.ChamadoNaoEncontradoException;
+import com.atendimento.api.exception.NenhumAtendimentoCadastradoException;
 import com.atendimento.api.exception.ValidaAssuntoException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -60,7 +61,19 @@ public class AtendimentoApiExceptionHandler extends ResponseEntityExceptionHandl
     }
 
     @ExceptionHandler(ChamadoNaoEncontradoException.class)
-    public ResponseEntity<Object> handleValidaAssuntoException(ChamadoNaoEncontradoException ex, WebRequest request) {
+    public ResponseEntity<Object> handleChamadoNaoEncontradoExceptionException(ChamadoNaoEncontradoException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        var problema = new Problema();
+        problema.setStatus(status.value());
+        problema.setDataHora(OffsetDateTime.now());
+        problema.setTitulo(ex.getMessage());
+
+        return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(NenhumAtendimentoCadastradoException.class)
+    public ResponseEntity<Object> handleNenhumAtendimentoCadastradoExceptionException(NenhumAtendimentoCadastradoException ex, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
 
         var problema = new Problema();
