@@ -20,6 +20,8 @@
     - Java11
     - SpringBoot 2.3.3.RELEASE
     - H2
+    - JUnit5
+    - Mockito
     - Rest
     - SpringData
 
@@ -61,6 +63,8 @@
     - Metod: PUT
         http://localhost:8080/api/atendimentos/{numeroChamado}/finaliza
         
+        ****Obs.: Precisa informar o numero do chamado na URL****
+
         ****** Sem Body ******
 
     - Metod: GET
